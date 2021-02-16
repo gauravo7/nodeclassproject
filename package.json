@@ -7,6 +7,7 @@
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "git":"https://github.com/gauravo7/nodeclassproject",
   "author": "Gaurav Sharma",
   "license": "ISC",
   "dependencies": {
