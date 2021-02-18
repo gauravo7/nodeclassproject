@@ -1,5 +1,5 @@
 let router = require('express').Router();
-
+var studentcontroller = require('../controllers/studentController')
 router.get('/', function(req, res) {
     res.json({
         status: 'Admin Api',
@@ -14,5 +14,10 @@ router.get('/fetch', function(req, res) {
         message: 'Fetching Data'
     });
 });
+
+router.get('/allstu',studentcontroller.allstu)
+router.post('/addstu',studentcontroller.addstu)
+router.post('/singlestu',studentcontroller.singlestu)
+
 
 module.exports = router

@@ -1,7 +1,6 @@
 
 let express = require('express')
 let bodyParser = require('body-parser');
-let mongoose = require('mongoose');
 
 
 let app = express();
@@ -14,22 +13,15 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json())
 
+require('./server/config/db')
 
-let apiroutes = require('./routes');
-let adminroutes = require('./adminroutes');
+let apiroutes = require('./server/routes/routes');
+let adminroutes = require('./server/routes/adminroutes');
 
 
 app.use('/admin',adminroutes)
 app.use('/',apiroutes)
 
-const dbPath = 'mongodb://localhost/project';
-const options = {useNewUrlParser: true, useUnifiedTopology: true}
-const mongo = mongoose.connect(dbPath, options);
-mongo.then(() => {
-    console.log('connected');
-}, error => {
-    console.log(error, 'error');
-})
 
 app.listen(port, function() {
     console.log("Running FirstRest on Port "+ port);
