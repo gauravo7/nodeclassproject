@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');//schema
 var studentSchema = mongoose.Schema({
     name: {    type: String,       },
-    email: {       type: String,       required: true   },
+    email: {       type: String,       required: true, unique:true   },
     phone: {        type: Number,           },
     address: {        type: String,           },
     created_at: {        type: Date,        default: Date.now    }

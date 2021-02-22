@@ -18,6 +18,9 @@ router.get('/fetch', function(req, res) {
 router.get('/allstu',studentcontroller.allstu)
 router.post('/addstu',studentcontroller.addstu)
 router.post('/singlestu',studentcontroller.singlestu)
+router.delete('/deletestu',studentcontroller.deletestu)
+router.patch('/editstu',studentcontroller.editstu)
+router.put('/editstu2',studentcontroller.editstu)
 
 
 module.exports = router
