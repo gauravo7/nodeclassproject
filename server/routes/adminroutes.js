@@ -17,6 +17,10 @@ router.get('/fetch', function(req, res) {
 
 router.get('/allstu',studentcontroller.allstu)
 router.post('/addstu',studentcontroller.addstu)
+router.post('/address',studentcontroller.address)
+router.post('/alladdress',studentcontroller.alladdress)
+router.post('/deleteadd',studentcontroller.deleteadd)
+
 router.post('/singlestu',studentcontroller.singlestu)
 router.delete('/deletestu',studentcontroller.deletestu)
 router.patch('/editstu',studentcontroller.editstu)

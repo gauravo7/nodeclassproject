@@ -47,7 +47,12 @@ exports.addstu = function(req,res){
             stuobj.name = req.body.name
             stuobj.email = req.body.email
             stuobj.phone = req.body.phone
-            stuobj.address = req.body.address
+            var add = {}
+            add.address_name = formdata.address_name
+            add.complete_address = formdata.complete_address
+            add.pincode = formdata.pincode
+
+            stuobj.address.push(add)
             stuobj.save()
             .then(data=>{
                 res.status(200).send({success:true,message:"Addded",status:200,stu:data})
@@ -63,7 +68,7 @@ exports.editstu2 = function(req,res){
     Student.findOne({_id:req.body._id})
     .then(data=>{
         if(data!=null){
-            data.name = req.body.name
+            data1.name = req.body.name
             data.phone = req.body.phone
             data.address = req.body.address
             data.save()
@@ -102,5 +107,58 @@ exports.editstu = function(req,res){
             res.status(404).send({success:false,message:"No Student Found",status:404})
 
         }
+    })
+}
+
+exports.address = function(req,res){
+    var formdata = req.body
+    Student.findOne({_id:formdata._id})
+    .then(stuobj=>{
+          if(stuobj!=null){
+            var data1= {}
+            data1.address_name = formdata.address_name
+            data1.complete_address = formdata.complete_address
+            data1.pincode = formdata.pincode
+            stuobj.address.push(data1)
+            stuobj.save()
+            .then(stuobj=>{
+                res.status(200).send({success:true,message:"Address Added",status:200,stu:stuobj})
+            })
+          }else{
+            res.status(404).send({success:false,message:"User Not Exit",status:404})
+          }        
+        
+    })
+}
+exports.alladdress = function(req,res){
+    var formdata = req.body
+    Student.findOne({_id:formdata._id})
+    .then(stuobj=>{
+          if(stuobj!=null){
+            res.status(200).send({success:true,message:"Address Added",status:200,stu:stuobj.address})
+          }else{
+            res.status(404).send({success:false,message:"User Not Exit",status:404})
+          }        
+        
+    })
+}
+
+
+exports.deleteadd = function(req,res){
+    var formdata = req.body
+    Student.findOne({_id:formdata._id})
+    .then(stuobj=>{
+          if(stuobj!=null){
+            Student.updateOne(
+                { address: { $elemMatch: { _id:formdata.addressId} } },
+                { $pull: { "address": { _id: formdata.addressId }   } },        
+            )
+            .then(multiple=>{
+                res.status(200).send({success:true,message:"Deleted",status:200})
+            })
+          }else{
+            res.status(404).send({success:false,message:"User Not Exit",status:404})
+          }        
+        
     })
 }
