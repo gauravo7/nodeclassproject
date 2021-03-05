@@ -162,3 +162,12 @@ exports.deleteadd = function(req,res){
         
     })
 }
+
+
+exports.singlestunew = function(req,res){
+    Student.findById(req.params.stu_id)
+    .then(data=>{
+        res.send({success:true,message:"Students",status:200,data:data})
+        
+    })
+}

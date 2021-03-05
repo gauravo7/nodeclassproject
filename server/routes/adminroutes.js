@@ -26,5 +26,7 @@ router.delete('/deletestu',studentcontroller.deletestu)
 router.patch('/editstu',studentcontroller.editstu)
 router.put('/editstu2',studentcontroller.editstu)
 
+router.route('/singlestu/:stu_id')
+        .get(studentcontroller.singlestunew)
 
 module.exports = router
