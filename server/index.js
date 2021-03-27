@@ -6,6 +6,9 @@ let bodyParser = require('body-parser');
 let app = express();
 
 var port = process.env.PORT || 8080;
+
+app.use(express.static(__dirname + '/public/'));
+
 app.get('/', (req, res) => res.send('Welcome to Express'));
 
 app.use(bodyParser.urlencoded({
@@ -13,10 +16,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json())
 
-require('./server/config/db')
+require('./config/db')
 
-let apiroutes = require('./server/routes/routes');
-let adminroutes = require('./server/routes/adminroutes');
+let apiroutes = require('./routes/routes');
+let adminroutes = require('./routes/adminroutes');
 
 
 app.use('/admin',adminroutes)

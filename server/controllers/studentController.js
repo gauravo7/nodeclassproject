@@ -162,6 +162,32 @@ exports.deleteadd = function(req,res){
         
     })
 }
+exports.updateadd = function(req,res){
+    var formdata = req.body
+    Student.findOne({_id:formdata._id})
+    .then(stuobj=>{
+            
+          if(stuobj!=null){
+              if(formdata.pincode!=undefined && formdata.complete_address)
+          
+                var obj={
+                    'address.$.pincode':formdata.pincode,
+                    'address.$.complete_address':formdata.complete_address               
+                }
+            Student.updateOne(
+                { address: { $elemMatch: { _id:formdata.addressId} } },
+                {$set:obj},        
+            )
+            .then(data=>{
+                console.log(data)
+                res.status(200).send({success:true,message:"Updated ",status:200})
+            })
+          }else{
+            res.status(404).send({success:false,message:"User Not Exit",status:404})
+          }        
+        
+    })
+}
 
 
 exports.singlestunew = function(req,res){
